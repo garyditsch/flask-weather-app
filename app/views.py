@@ -1,3 +1,4 @@
+import os
 from flask import render_template, request
 from flask import flash
 
@@ -22,7 +23,7 @@ def current_weather():
 
         try: 
 
-            api = OpenWeatherAPI(app.config["OPEN_WEATHER_API_KEY"], weather_form.units.data)
+            api = OpenWeatherAPI(os.environ["OPEN_WEATHER_API_KEY"], weather_form.units.data)
             weather_item = api.get_current_weather(city, country_code)
         except ValueError as e:
             flash(str(e), "warning")
@@ -43,7 +44,7 @@ def forecast_weather():
 
         try: 
 
-            api = OpenWeatherAPI(app.config["OPEN_WEATHER_API_KEY"], weather_form.units.data)
+            api = OpenWeatherAPI(os.environ["OPEN_WEATHER_API_KEY"], weather_form.units.data)
             weather_list = api.get_daily_weather(city, country_code)
         except ValueError as e:
             flash(str(e), "warning")   
